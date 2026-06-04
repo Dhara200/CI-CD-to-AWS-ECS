@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Site 1 — DevCore</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #c9d1d9;
+      min-height: 100vh;
+    }
+    header {
+      background: #161b22;
+      border-bottom: 1px solid #30363d;
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo { color: #58a6ff; font-size: 22px; font-weight: 700; letter-spacing: 1px; }
+    nav a {
+      color: #8b949e;
+      text-decoration: none;
+      margin-left: 24px;
+      font-size: 14px;
+      transition: color .2s;
+    }
+    nav a:hover { color: #58a6ff; }
+    .hero {
+      text-align: center;
+      padding: 80px 20px 60px;
+    }
+    .badge {
+      display: inline-block;
+      background: #1f6feb22;
+      border: 1px solid #1f6feb;
+      color: #58a6ff;
+      font-size: 12px;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    h1 {
+      font-size: 48px;
+      font-weight: 800;
+      color: #f0f6fc;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    h1 span { color: #58a6ff; }
+    .subtitle {
+      font-size: 18px;
+      color: #8b949e;
+      max-width: 520px;
+      margin: 0 auto 36px;
+      line-height: 1.6;
+    }
+    .btn {
+      display: inline-block;
+      background: #238636;
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      margin: 6px;
+      transition: background .2s;
+    }
+    .btn:hover { background: #2ea043; }
+    .btn.outline {
+      background: transparent;
+      border: 1px solid #30363d;
+      color: #c9d1d9;
+    }
+    .btn.outline:hover { border-color: #58a6ff; color: #58a6ff; }
+    .cards {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 40px 40px 80px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      padding: 28px 24px;
+      width: 280px;
+      transition: border-color .2s;
+    }
+    .card:hover { border-color: #58a6ff; }
+    .card-icon { font-size: 28px; margin-bottom: 14px; }
+    .card h3 { color: #f0f6fc; font-size: 16px; margin-bottom: 8px; }
+    .card p { color: #8b949e; font-size: 14px; line-height: 1.6; }
+    .tag {
+      display: inline-block;
+      background: #21262d;
+      color: #8b949e;
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 12px;
+      margin-top: 12px;
+      margin-right: 4px;
+    }
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 13px;
+      color: #484f58;
+      border-top: 1px solid #21262d;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">&lt;DevCore /&gt;</div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Projects</a>
+      <a href="#">Docs</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="badge">🟢 Apache2 — Site 1 is Live</div>
+    <h1>Build. Deploy.<br><span>Ship Faster.</span></h1>
+    <p class="subtitle">
+      This is Site 1 running on Apache2 Virtual Host. Your server is configured correctly and serving this page from <code>/var/www/site1/</code>.
+    </p>
+    <a href="#" class="btn">Get Started</a>
+    <a href="#" class="btn outline">View Docs</a>
+  </section>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">⚡</div>
+      <h3>Fast by Default</h3>
+      <p>Apache2 serves static files at blazing speed with minimal configuration overhead.</p>
+      <span class="tag">Performance</span>
+      <span class="tag">Static</span>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔒</div>
+      <h3>Secure Headers</h3>
+      <p>Configure <code>.htaccess</code> rules to harden your server with custom response headers.</p>
+      <span class="tag">Security</span>
+      <span class="tag">Headers</span>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌐</div>
+      <h3>Virtual Hosting</h3>
+      <p>Multiple sites, one server. Apache2 routes requests by domain to the right document root.</p>
+      <span class="tag">VirtualHost</span>
+      <span class="tag">DNS</span>
+    </div>
+  </div>
+
+  <footer>
+    Site 1 &mdash; Served by Apache2 on Ubuntu &mdash; /var/www/site1/index.html
+  </footer>
+</body>
+</html>
