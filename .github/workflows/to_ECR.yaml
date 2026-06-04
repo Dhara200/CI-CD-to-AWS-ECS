@@ -20,11 +20,11 @@ jobs:
 
     steps:
 
-      # ✅ Step 1: Checkout source code
+      # Step 1: Checkout source code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # ✅ Step 2: Configure AWS credentials
+      # Step 2: Configure AWS credentials
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -32,12 +32,12 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      # ✅ Step 3: Login to Amazon ECR
+      # Step 3: Login to Amazon ECR
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-      # ✅ Step 4: Build Docker image
+      # Step 4: Build Docker image
       - name: Build Docker image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
@@ -46,7 +46,7 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
 
-      # ✅ Step 5: Push image to ECR
+      # Step 5: Push image to ECR
       - name: Push image to ECR
         id: push-image
         env:
@@ -57,37 +57,37 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
-      # ✅ Step 6: Download current task definition
+      # Step 6: Download current task definition
       - name: Download task definition
         run: |
           aws ecs describe-task-definition \
             --task-definition ${{ secrets.TASK_DEFINITION }} \
             --query taskDefinition > task-definition.json
+
           echo "Task definition downloaded"
           cat task-definition.json
-       - name: Clean task definition
+
+      # Step 6.1: Clean task definition
       - name: Clean task definition
         run: |
           jq 'del(
-          .taskDefinitionArn,
-          .revision,
-          .status,
-          .requiresAttributes,
-          .compatibilities,
-          .registeredAt,
-          .registeredBy,
-          .enableFaultInjection,
-          .tags
+            .taskDefinitionArn,
+            .revision,
+            .status,
+            .requiresAttributes,
+            .compatibilities,
+            .registeredAt,
+            .registeredBy,
+            .enableFaultInjection,
+            .tags
           )' task-definition.json > cleaned-task-definition.json
 
           mv cleaned-task-definition.json task-definition.json
 
-           echo "Cleaned task definition:"
-           cat task-definition.json
-       
-  
-    
-      # ✅ Step 7: Update task definition with new image
+          echo "Cleaned task definition:"
+          cat task-definition.json
+
+      # Step 7: Update task definition with new image
       - name: Update ECS task definition with new image
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
@@ -96,7 +96,7 @@ jobs:
           container-name: ${{ secrets.CONTAINER_NAME }}
           image: ${{ steps.push-image.outputs.image }}
 
-      # ✅ Step 8: Deploy to ECS service
+      # Step 8: Deploy to ECS service
       - name: Deploy to ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
@@ -105,7 +105,7 @@ jobs:
           cluster: ${{ secrets.ECS_CLUSTER }}
           wait-for-service-stability: true
 
-      # ✅ Step 9: Print success message
+      # Step 9: Print success message
       - name: Deploy successful
         run: |
           echo "🚀 Deployment complete!"
