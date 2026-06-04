@@ -65,7 +65,25 @@ jobs:
             --query taskDefinition > task-definition.json
           echo "Task definition downloaded"
           cat task-definition.json
+       - name: Clean task definition
+  run: |
+    jq 'del(
+      .taskDefinitionArn,
+      .revision,
+      .status,
+      .requiresAttributes,
+      .compatibilities,
+      .registeredAt,
+      .registeredBy,
+      .enableFaultInjection,
+      .tags
+    )' task-definition.json > cleaned-task-definition.json
 
+    mv cleaned-task-definition.json task-definition.json
+
+    echo "Cleaned task definition:"
+    cat task-definition.json
+    
       # ✅ Step 7: Update task definition with new image
       - name: Update ECS task definition with new image
         id: task-def
